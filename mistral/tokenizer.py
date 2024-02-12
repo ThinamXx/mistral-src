@@ -7,6 +7,7 @@ class Tokenizer:
     def __init__(self, model_path: str):
         assert Path(model_path).exists(), model_path
         self._model = SentencePieceProcessor(model_file=model_path)
+        print("Vocab size:", self._model.vocab_size())
         assert self._model.vocab_size() == self._model.get_piece_size()
 
     @property

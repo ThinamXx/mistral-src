@@ -140,6 +140,7 @@ def demo(
     else:
         should_print = True
     tokenizer = Tokenizer(str(Path(model_path) / "tokenizer.model"))
+    # vocab_size = 32000
     transformer = Transformer.from_folder(
         Path(model_path), max_batch_size=3, num_pipeline_ranks=num_pipeline_ranks
     )

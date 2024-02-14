@@ -43,6 +43,7 @@ def generate(prompts: List[str], model: Transformer, tokenizer: Tokenizer, *, ma
     # Cache
     cache_window = max(seqlens) + max_tokens
     if model.args.sliding_window is not None and cache_window > model.args.sliding_window:
+        # the cache window or total sequence length should not exceed the sliding window
         cache_window = model.args.sliding_window
     cache = RotatingBufferCache(
         model.n_local_layers,

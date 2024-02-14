@@ -119,6 +119,7 @@ class RotatingBufferCache:
         self.n_kv_heads = n_kv_heads
         self.head_dim = head_dim
 
+        # [n_layers, max_batch_size, sliding_window, n_kv_heads, head_dim]
         self.cache_k = torch.empty((
             n_layers,
             max_batch_size,
@@ -126,6 +127,7 @@ class RotatingBufferCache:
             n_kv_heads,
             head_dim
         ))
+        # [n_layers, max_batch_size, sliding_window, n_kv_heads, head_dim]
         self.cache_v = torch.empty((
             n_layers,
             max_batch_size,
@@ -150,6 +152,7 @@ class RotatingBufferCache:
         return self.cache_k.device
 
     def to(self, device: torch.device, dtype: torch.dtype):
+        # (n_layers, max_batch_size, sliding_window, n_kv_heads, head_dim)
         self.cache_k = self.cache_k.to(device=device, dtype=dtype)
         self.cache_v = self.cache_v.to(device=device, dtype=dtype)
 

@@ -374,6 +374,7 @@ class Transformer(nn.Module):
                         self.pipeline_rank,
                     )
                     skipped.add(k)
+                    # skipped = ["tok_embeddings"]
             elif k.startswith("norm") or k.startswith("output"):
                 if self.pipeline_rank == self.num_pipeline_ranks - 1:
                     state_to_load[k] = v
@@ -384,6 +385,7 @@ class Transformer(nn.Module):
                         self.pipeline_rank,
                     )
                     skipped.add(k)
+                    # skipped = ["tok_embeddings", "norm", "output"]
             elif k.startswith("layers"):
                 layer_id = k.split(".")[1]
                 if layer_id in self.layers:

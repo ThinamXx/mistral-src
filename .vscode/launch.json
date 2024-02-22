@@ -12,8 +12,27 @@
             "console": "integratedTerminal",
             "justMyCode": false, 
             "args": [
-                "demo", "/home/ubuntu/bin/mistral-src/assets/models/mistral-7B-v0.1" 
+                "demo", "/home/ubuntu/bin/mistral-src/assets/models/mistral-7B-v0.1",
+                "--num_pipeline_ranks", "1"
             ]
-        }
+        },
+        {
+            "name": "Run with torchrun",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "/home/ubuntu/miniconda3/envs/mistral/bin/torchrun",
+            "args": [
+                "--nproc-per-node",
+                "2",
+                "-m",
+                "main",
+                "demo",
+                "/home/ubuntu/bin/mistral-src/assets/models/mistral-7B-v0.1",
+                "--num_pipeline_ranks",
+                "3"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }        
     ]
 }

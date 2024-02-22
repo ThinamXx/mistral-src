@@ -149,8 +149,8 @@ def demo(
     res, _logprobs = generate(
         [
             "This is a test",
-            "This is another great test",
-            "This is a third test, mistral AI is very good at testing. ",
+            # "This is another great test",
+            # "This is a third test, mistral AI is very good at testing. ",
         ],
         transformer,
         tokenizer,

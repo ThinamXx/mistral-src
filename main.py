@@ -45,6 +45,8 @@ def generate(prompts: List[str], model: Transformer, tokenizer: Tokenizer, *, ma
     if model.args.sliding_window is not None and cache_window > model.args.sliding_window:
         # the cache window or total sequence length should not exceed the sliding window
         cache_window = model.args.sliding_window
+        
+    # TODO: learn mask from model
     cache = RotatingBufferCache(
         model.n_local_layers,
         model.args.max_batch_size,
@@ -62,7 +64,8 @@ def generate(prompts: List[str], model: Transformer, tokenizer: Tokenizer, *, ma
     # One chunk if size not specified
     max_prompt_len = max(seqlens)
     if chunk_size is None:
-        chunk_size = max_prompt_len
+        # TODO: set the chunk size here
+        chunk_size = min(2, max_prompt_len)
 
     # Encode prompt by chunks
     for s in range(0, max_prompt_len, chunk_size):

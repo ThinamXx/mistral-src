@@ -89,11 +89,14 @@ class Attention(nn.Module):
         xv = xv.view(seqlen_sum, self.n_kv_heads, self.head_dim)
         xq, xk = apply_rotary_emb(xq, xk, freqs_cis=freqs_cis)
 
+        print(f"xq: {xq.shape}, xk: {xk.shape}, xv: {xv.shape}")
         if cache is None:
             key, val = xk, xv
+            print(f"key: {key.shape}, val: {val.shape}")
         elif cache.prefill:
             key, val = cache.interleave_kv(xk, xv)
             cache.update(xk, xv)
+            print(f"key: {key.shape}, val: {val.shape}")
         else:
             cache.update(xk, xv)
             key, val = cache.key, cache.value

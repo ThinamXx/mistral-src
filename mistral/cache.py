@@ -85,6 +85,7 @@ class CacheView:
             # No cache to interleave
             return xk, xv
 
+        print("Interleaving cache")
         # Make it a list of [(T, H, D)]
         xk = torch.split(xk, self.metadata.seqlens)
         xv = torch.split(xv, self.metadata.seqlens)
@@ -240,6 +241,7 @@ class RotatingBufferCache:
             mask = BlockDiagonalCausalMask.from_seqlens(seqlens).make_local_attention(
                 self.sliding_window
             )
+            print(f"First prefill mask: {mask}")
         elif subsequent_prefill:
             mask = BlockDiagonalMask.from_seqlens(
                 q_seqlen=seqlens,

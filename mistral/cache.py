@@ -200,6 +200,7 @@ class RotatingBufferCache:
         """
         if self.kv_seqlens is None:
             self.init_kvseqlens(len(seqlens))
+        print(f"Current KV seqlens: {self.kv_seqlens}")
         assert len(seqlens) == len(
             self.kv_seqlens
         ), f"Batch size is {len(self.kv_seqlens)}, got {len(seqlens)}, did you forget to reset cache?"
@@ -250,6 +251,7 @@ class RotatingBufferCache:
                     for (s, cached_s) in zip(seqlens, self.kv_seqlens)
                 ],
             ).make_local_attention_from_bottomright(self.sliding_window)
+            print(f"Subsequent prefill mask: {mask}")
         else:
             mask = BlockDiagonalCausalWithOffsetPaddedKeysMask.from_seqlens(
                 q_seqlen=seqlens,

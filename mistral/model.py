@@ -96,7 +96,7 @@ class Attention(nn.Module):
         elif cache.prefill:
             key, val = cache.interleave_kv(xk, xv)
             cache.update(xk, xv)
-            print(f"key: {key.shape}, val: {val.shape}")
+            print(f"cache_key: {key.shape}, cache_val: {val.shape}")
         else:
             cache.update(xk, xv)
             key, val = cache.key, cache.value

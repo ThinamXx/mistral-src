@@ -76,7 +76,7 @@ def generate(
     max_prompt_len = max(seqlens)
     if chunk_size is None:
         # TODO: set the chunk size here
-        chunk_size = max(2, max_prompt_len)
+        chunk_size = min(2, max_prompt_len)
         print(f"Chunk size: {chunk_size}")
 
     # Encode prompt by chunks
@@ -168,7 +168,7 @@ def interactive(
 
 
 def demo(
-    model_path: str, max_tokens: int = 35, temperature: float = 0, num_pipeline_ranks=1
+    model_path: str, max_tokens: int = 3, temperature: float = 0, num_pipeline_ranks=1
 ):
     if num_pipeline_ranks > 1:
         torch.distributed.init_process_group()
@@ -184,9 +184,9 @@ def demo(
 
     res, _logprobs = generate(
         [
-            "This is a test",
+            # "This is a test",
             "This is another great test",
-            "This is a third test, mistral AI is very good at testing. ",
+            # "This is a third test, mistral AI is very good at testing. ",
         ],
         transformer,
         tokenizer,

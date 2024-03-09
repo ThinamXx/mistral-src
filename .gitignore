@@ -161,4 +161,3 @@ cython_debug/
 
 assets/models/
 docs
-test.py
